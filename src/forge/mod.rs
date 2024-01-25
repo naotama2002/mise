@@ -421,6 +421,14 @@ pub fn unalias_forge(forge: &str) -> &str {
     }
 }
 
+pub fn alias_forge(forge: &str) -> &str {
+    match forge {
+        "node" => "nodejs",
+        "go" => "golang",
+        _ => forge,
+    }
+}
+
 impl Display for dyn Forge {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.id())

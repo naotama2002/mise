@@ -12,6 +12,7 @@ use crate::config::config_file;
 use crate::config::config_file::{ConfigFile, ConfigFileType};
 use crate::file;
 use crate::file::display_path;
+use crate::forge::alias_forge;
 use crate::tera::{get_tera, BASE_CONTEXT};
 use crate::toolset::{ToolSource, ToolVersionRequest, Toolset};
 
@@ -185,7 +186,12 @@ impl ConfigFile for ToolVersions {
             .max()
             .unwrap_or_default();
         for (_, tv) in &self.plugins {
-            let plugin = pad_str(&tv.orig_name, max_plugin_len, Alignment::Left, None);
+            let plugin = pad_str(
+                alias_forge(&tv.orig_name),
+                max_plugin_len,
+                Alignment::Left,
+                None,
+            );
             s.push_str(&format!("{} {}{}", plugin, tv.versions.join(" "), tv.post));
         }
 
